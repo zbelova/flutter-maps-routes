@@ -9,8 +9,8 @@ import YandexMapsMobile
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    GMSServices.provideAPIKey("YOUR_GOOGLE_API_KEY")
-    YMKMapKit.setApiKey("YOUR_YANDEX_API_KEY") // Your generated API key
+    GMSServices.provideAPIKey("AIzaSyBLR3iEOULZSNtuNNhhGLIpTASvwxvVLg4")
+    YMKMapKit.setApiKey("0a0194a6-6171-4fa5-a2b0-faaf2475ec55") // Your generated API key
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }

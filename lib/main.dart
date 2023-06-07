@@ -19,6 +19,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const YandexMapPage());
+        // home: const YandexMapPage());
+        //home: const YandexMapPageRoutes());
+        home: const GoogleMapPage());
   }
 }
