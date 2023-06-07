@@ -5,7 +5,7 @@ import 'package:maps_example/model/route_entity.dart';
 import '../objectbox.g.dart';
 
 class RoutesRepository {
-  final Box<Route> box;
+  final Box<RouteEntity> box;
 
   RoutesRepository(this.box);
 
@@ -17,15 +17,22 @@ class RoutesRepository {
     double? endLng,
     String? endAddress,
   }) async {
-    final entity = Route(startLat: startLat, startLng: startLng, startAddress: startAddress, endLat: endLat, endLng: endLng, endAddress: endAddress);
+    final entity = RouteEntity(
+      startLat: startLat,
+      startLng: startLng,
+      startAddress: startAddress,
+      endLat: endLat,
+      endLng: endLng,
+      endAddress: endAddress,
+    );
     await box.putAsync(entity);
   }
 
-  Future<List<Route>> getAllRoutes() async {
+  Future<List<RouteEntity>> getAllRoutes() async {
     return await box.getAllAsync();
   }
 
-  Future<Route?> getRoute(int id) async {
+  Future<RouteEntity?> getRoute(int id) async {
     return await box.getAsync(id);
   }
 
@@ -42,7 +49,7 @@ class RoutesRepository {
     double? endLng,
     String? endAddress,
   }) async {
-    Route entity = Route(id: id, startLat: startLat, startLng: startLng, startAddress: startAddress, endLat: endLat, endLng: endLng, endAddress: endAddress);
+    RouteEntity entity = RouteEntity(id: id, startLat: startLat, startLng: startLng, startAddress: startAddress, endLat: endLat, endLng: endLng, endAddress: endAddress);
     await box.putAsync(entity);
   }
 }

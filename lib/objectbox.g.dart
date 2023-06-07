@@ -98,15 +98,15 @@ ModelDefinition getObjectBoxModel() {
       version: 1);
 
   final bindings = <Type, EntityDefinition>{
-    Route: EntityDefinition<Route>(
+    RouteEntity: EntityDefinition<RouteEntity>(
         model: _entities[0],
-        toOneRelations: (Route object) => [],
-        toManyRelations: (Route object) => {},
-        getId: (Route object) => object.id,
-        setId: (Route object, int id) {
+        toOneRelations: (RouteEntity object) => [],
+        toManyRelations: (RouteEntity object) => {},
+        getId: (RouteEntity object) => object.id,
+        setId: (RouteEntity object, int id) {
           object.id = id;
         },
-        objectToFB: (Route object, fb.Builder fbb) {
+        objectToFB: (RouteEntity object, fb.Builder fbb) {
           final startAddressOffset = fbb.writeString(object.startAddress);
           final endAddressOffset = object.endAddress == null
               ? null
@@ -126,7 +126,7 @@ ModelDefinition getObjectBoxModel() {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
 
-          final object = Route(
+          final object = RouteEntity(
               id: const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0),
               startLat:
                   const fb.Float64Reader().vTableGet(buffer, rootOffset, 10, 0),
@@ -148,30 +148,30 @@ ModelDefinition getObjectBoxModel() {
   return ModelDefinition(model, bindings);
 }
 
-/// [Route] entity fields to define ObjectBox queries.
+/// [RouteEntity] entity fields to define ObjectBox queries.
 class Route_ {
-  /// see [Route.id]
-  static final id = QueryIntegerProperty<Route>(_entities[0].properties[0]);
+  /// see [RouteEntity.id]
+  static final id = QueryIntegerProperty<RouteEntity>(_entities[0].properties[0]);
 
-  /// see [Route.startAddress]
+  /// see [RouteEntity.startAddress]
   static final startAddress =
-      QueryStringProperty<Route>(_entities[0].properties[1]);
+      QueryStringProperty<RouteEntity>(_entities[0].properties[1]);
 
-  /// see [Route.startLat]
+  /// see [RouteEntity.startLat]
   static final startLat =
-      QueryDoubleProperty<Route>(_entities[0].properties[2]);
+      QueryDoubleProperty<RouteEntity>(_entities[0].properties[2]);
 
-  /// see [Route.startLng]
+  /// see [RouteEntity.startLng]
   static final startLng =
-      QueryDoubleProperty<Route>(_entities[0].properties[3]);
+      QueryDoubleProperty<RouteEntity>(_entities[0].properties[3]);
 
-  /// see [Route.endLat]
-  static final endLat = QueryDoubleProperty<Route>(_entities[0].properties[4]);
+  /// see [RouteEntity.endLat]
+  static final endLat = QueryDoubleProperty<RouteEntity>(_entities[0].properties[4]);
 
-  /// see [Route.endLng]
-  static final endLng = QueryDoubleProperty<Route>(_entities[0].properties[5]);
+  /// see [RouteEntity.endLng]
+  static final endLng = QueryDoubleProperty<RouteEntity>(_entities[0].properties[5]);
 
-  /// see [Route.endAddress]
+  /// see [RouteEntity.endAddress]
   static final endAddress =
-      QueryStringProperty<Route>(_entities[0].properties[6]);
+      QueryStringProperty<RouteEntity>(_entities[0].properties[6]);
 }

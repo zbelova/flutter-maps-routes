@@ -1,7 +1,7 @@
 import 'package:objectbox/objectbox.dart';
 
 @Entity()
-class Route {
+class RouteEntity {
   @Id()
   int id;
   final double startLat;
@@ -11,7 +11,7 @@ class Route {
   final String startAddress;
   final String? endAddress;
 
-  Route({
+  RouteEntity({
     this.id = 0,
     required this.startLat,
     required this.startLng,
