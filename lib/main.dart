@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:maps_example/yandex_map_page.dart';
+import 'package:maps_example/main_screen.dart';
+import 'package:maps_example/screens/yandex_map_page.dart';
 
-import 'google_map_page.dart';
+import 'screens/google_map_page.dart';
 
 const googleApiKey = "AIzaSyBLR3iEOULZSNtuNNhhGLIpTASvwxvVLg4";
 
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         ),
         // home: const YandexMapPage());
         //home: const YandexMapPageRoutes());
-        home: const GoogleMapPage());
+        //home: const GoogleMapPage());
+        home: MainScreen());
   }
 }

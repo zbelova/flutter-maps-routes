@@ -1,0 +1,64 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:1848222703228881579",
+      "lastPropertyId": "8:4416815556361008324",
+      "name": "Route",
+      "properties": [
+        {
+          "id": "1:8179943828594874284",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1285356469703204693",
+          "name": "startAddress",
+          "type": 9
+        },
+        {
+          "id": "4:237661968860993151",
+          "name": "startLat",
+          "type": 8
+        },
+        {
+          "id": "5:7215304880948161696",
+          "name": "startLng",
+          "type": 8
+        },
+        {
+          "id": "6:6382421530367502941",
+          "name": "endLat",
+          "type": 8
+        },
+        {
+          "id": "7:8801212401078182837",
+          "name": "endLng",
+          "type": 8
+        },
+        {
+          "id": "8:4416815556361008324",
+          "name": "endAddress",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:1848222703228881579",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    8930788452961932101
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}
