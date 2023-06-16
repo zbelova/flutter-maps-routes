@@ -38,7 +38,7 @@ dependencies:
   yandex_mapkit: ^3.0.3
   objectbox: ^2.0.0
   objectbox_flutter_libs: any
-  geocoding: ^2.1.0
+  #geocoding: ^2.1.0
 
 dev_dependencies:
   flutter_test:

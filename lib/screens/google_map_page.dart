@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:geocoding/geocoding.dart' as GC;
+//import 'package:geocoding/geocoding.dart' as GC;
 import '../model/repository.dart';
 import '../model/route_entity.dart';
 
@@ -38,23 +38,25 @@ class _GoogleMapPageState extends State<GoogleMapPage> {
     double? endLng,
     //String? endAddress,
   }) async {
-    List<GC.Placemark> placemarkStart = await GC.placemarkFromCoordinates(startLat, startLng);
+    //List<GC.Placemark> placemarkStart = await GC.placemarkFromCoordinates(startLat, startLng);
 
     if (endLat == null) {
       await widget.routesRepository.addRoute(
         startLat: startLat,
         startLng: startLng,
-        startAddress: "${placemarkStart.first.street}, ${placemarkStart.first.isoCountryCode} " ?? "",
+          startAddress:'',
+        //startAddress: "${placemarkStart.first.street}, ${placemarkStart.first.isoCountryCode} " ?? "",
       );
     } else {
-      List<GC.Placemark> placemarkEnd = await GC.placemarkFromCoordinates(endLat!, endLng!);
+      //List<GC.Placemark> placemarkEnd = await GC.placemarkFromCoordinates(endLat!, endLng!);
       await widget.routesRepository.addRoute(
         startLat: startLat,
         startLng: startLng,
-        startAddress:  "${placemarkStart.first.street}, ${placemarkStart.first.isoCountryCode} " ?? "",
+        startAddress:'',
+       // startAddress:  "${placemarkStart.first.street}, ${placemarkStart.first.isoCountryCode} " ?? "",
         endLat: endLat,
         endLng: endLng,
-        endAddress:  "${placemarkEnd.first.street}, ${placemarkEnd.first.isoCountryCode} " ?? "",
+       // endAddress:  "${placemarkEnd.first.street}, ${placemarkEnd.first.isoCountryCode} " ?? "",
       );
     }
   }
@@ -68,25 +70,27 @@ class _GoogleMapPageState extends State<GoogleMapPage> {
     double? endLng,
     //String? endAddress,
   }) async {
-    List<GC.Placemark> placemarkStart = await GC.placemarkFromCoordinates(startLat, startLng);
+   // List<GC.Placemark> placemarkStart = await GC.placemarkFromCoordinates(startLat, startLng);
 
     if (endLat == null) {
       await widget.routesRepository.updateRoute(
         id: id,
         startLat: startLat,
         startLng: startLng,
-        startAddress:  "${placemarkStart.first.street}, ${placemarkStart.first.isoCountryCode} " ?? "",
+        startAddress:'',
+      //  startAddress:  "${placemarkStart.first.street}, ${placemarkStart.first.isoCountryCode} " ?? "",
       );
     } else {
-      List<GC.Placemark> placemarkEnd = await GC.placemarkFromCoordinates(endLat!, endLng!);
+     // List<GC.Placemark> placemarkEnd = await GC.placemarkFromCoordinates(endLat!, endLng!);
       await widget.routesRepository.updateRoute(
         id: id,
         startLat: startLat,
         startLng: startLng,
-        startAddress:  "${placemarkStart.first.street}, ${placemarkStart.first.isoCountryCode} " ?? "",
+       // startAddress:  "${placemarkStart.first.street}, ${placemarkStart.first.isoCountryCode} " ?? "",
+        startAddress:'',
         endLat: endLat,
         endLng: endLng,
-        endAddress:  "${placemarkEnd.first.street}, ${placemarkEnd.first.isoCountryCode} " ?? "",
+        //endAddress:  "${placemarkEnd.first.street}, ${placemarkEnd.first.isoCountryCode} " ?? "",
       );
     }
   }

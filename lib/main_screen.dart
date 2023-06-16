@@ -5,6 +5,7 @@ import 'package:maps_example/screens/google_map_page.dart';
 
 class MainScreen extends StatefulWidget {
   final RoutesRepository routesRepository;
+
   const MainScreen({Key? key, required this.routesRepository}) : super(key: key);
 
   @override
@@ -12,21 +13,26 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List<RouteEntity> _routesList=[];
-String updateText = 'no update';
+  List<RouteEntity> _routesList = [];
+  //String updateText = 'not returned from google map';
+
   Future<void> _getRoutes() async {
     _routesList = await widget.routesRepository.getAllRoutes();
     setState(() {
-      _routesList = _routesList;
+   //   _routesList = _routesList;
     });
   }
-
-
 
   Future<void> _removeRoute(int id) async {
     await widget.routesRepository.removeRoute(id);
     _getRoutes();
   }
+
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   _getRoutes();
+  // }
 
 
   @override
@@ -34,7 +40,6 @@ String updateText = 'no update';
     _getRoutes();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -51,31 +56,36 @@ String updateText = 'no update';
                 routesRepository: widget.routesRepository,
               ),
             ),
-          ).then((value) => _getRoutes()).then((value) => setState(() {
-            updateText = 'update';
-          }));
-
-
+          ).then((value) => _getRoutes());
         },
         child: const Icon(Icons.add),
       ),
       body: Column(
         children: [
           Expanded(
-            child: StatefulBuilder(
-              builder: (context, setState) => _routesList.isEmpty
-                  ? const Center(
-                      child: Text("Нет маршрутов"),
-                    )
-                  : ListView.builder(
+            flex: 5,
+            child: _routesList.isEmpty
+                ? const Center(
+                    child: Text("Нет маршрутов"),
+                  )
+                : ListView.builder(
                     itemCount: _routesList.length,
                     itemBuilder: (BuildContext context, int index) => _buildRouteItem(index),
-                  ),),
+                  ),
           ),
-          Expanded(child: Text(updateText))
+          Expanded(child: Column(
+            children: [
+              SizedBox(
+                child: ElevatedButton(
+                  onPressed: () => _getRoutes(),
+                  child: const Text('refresh list'),
+                ),
+              )
+            ],
+          )),
+
         ],
       ),
-      
     );
   }
 
@@ -85,11 +95,11 @@ String updateText = 'no update';
         Expanded(
           child: Card(
             child: ListTile(
-              title: Text(_routesList[index].startAddress),
-              subtitle:_routesList[index].endLat!= null? Text(_routesList[index].endAddress??''):Text(''),
-              //title: Text(_routesList[index].startLat.toString() + " " + _routesList[index].startLng.toString()),
-             //  subtitle: Text(_routesList[index].endLat!= null?_routesList[index].endLat.toString() + " " + _routesList[index].endLng.toString():''),
-              onTap: ()  {
+              //title: Text(_routesList[index].startAddress),
+             // subtitle: _routesList[index].endLat != null ? Text(_routesList[index].endAddress ?? '') : Text(''),
+              title: Text(_routesList[index].startLat.toString() + " " + _routesList[index].startLng.toString()),
+              subtitle: Text(_routesList[index].endLat!= null?_routesList[index].endLat.toString() + " " + _routesList[index].endLng.toString():''),
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -100,7 +110,6 @@ String updateText = 'no update';
                       //removeRoute: _removeRoute,
                     ),
                   ),
-
                 ).then((value) => _getRoutes());
               },
             ),
