@@ -13,10 +13,12 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   List<RouteEntity> _routesList=[];
-
+String updateText = 'no update';
   Future<void> _getRoutes() async {
     _routesList = await widget.routesRepository.getAllRoutes();
-    setState(() {});
+    setState(() {
+      _routesList = _routesList;
+    });
   }
 
 
@@ -46,19 +48,34 @@ class _MainScreenState extends State<MainScreen> {
             context,
             MaterialPageRoute(
               builder: (context) => GoogleMapPage(
-                //updateRoute: _updateRoute,
                 routesRepository: widget.routesRepository,
-                //addRoute: _addRoute,
               ),
             ),
-          ).then((value) => _getRoutes());
+          ).then((value) => _getRoutes()).then((value) => setState(() {
+            updateText = 'update';
+          }));
+
+
         },
         child: const Icon(Icons.add),
       ),
-      body: ListView.builder(
-        itemCount: _routesList.length,
-        itemBuilder: (BuildContext context, int index) => _buildRouteItem(index),
+      body: Column(
+        children: [
+          Expanded(
+            child: StatefulBuilder(
+              builder: (context, setState) => _routesList.isEmpty
+                  ? const Center(
+                      child: Text("Нет маршрутов"),
+                    )
+                  : ListView.builder(
+                    itemCount: _routesList.length,
+                    itemBuilder: (BuildContext context, int index) => _buildRouteItem(index),
+                  ),),
+          ),
+          Expanded(child: Text(updateText))
+        ],
       ),
+      
     );
   }
 
@@ -66,25 +83,27 @@ class _MainScreenState extends State<MainScreen> {
     return Row(
       children: [
         Expanded(
-          child: ListTile(
-            // title: Text(_routesList[index].startAddress),
-            // subtitle: Text(_routesList[index].endAddress ?? ""),
-            title: Text(_routesList[index].startLat.toString() + " " + _routesList[index].startLng.toString()),
-             subtitle: Text(_routesList[index].endLat!= null?_routesList[index].endLat.toString() + " " + _routesList[index].endLng.toString():''),
-            onTap: ()  {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => GoogleMapPage(
-                    routeEntity: _routesList[index],
-                    routesRepository: widget.routesRepository,
-                    //updateRoute: _updateRoute,
-                    //removeRoute: _removeRoute,
+          child: Card(
+            child: ListTile(
+              title: Text(_routesList[index].startAddress),
+              subtitle:_routesList[index].endLat!= null? Text(_routesList[index].endAddress??''):Text(''),
+              //title: Text(_routesList[index].startLat.toString() + " " + _routesList[index].startLng.toString()),
+             //  subtitle: Text(_routesList[index].endLat!= null?_routesList[index].endLat.toString() + " " + _routesList[index].endLng.toString():''),
+              onTap: ()  {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GoogleMapPage(
+                      routeEntity: _routesList[index],
+                      routesRepository: widget.routesRepository,
+                      //updateRoute: _updateRoute,
+                      //removeRoute: _removeRoute,
+                    ),
                   ),
-                ),
 
-              ).then((value) => _getRoutes());
-            },
+                ).then((value) => _getRoutes());
+              },
+            ),
           ),
         ),
         IconButton(

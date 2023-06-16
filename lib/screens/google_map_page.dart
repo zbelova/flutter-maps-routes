@@ -39,39 +39,56 @@ class _GoogleMapPageState extends State<GoogleMapPage> {
     //String? endAddress,
   }) async {
     List<GC.Placemark> placemarkStart = await GC.placemarkFromCoordinates(startLat, startLng);
-    List<GC.Placemark> placemarkEnd = await GC.placemarkFromCoordinates(endLat!, endLng!);
-    if (endLat == null) {
 
+    if (endLat == null) {
       await widget.routesRepository.addRoute(
         startLat: startLat,
         startLng: startLng,
-        startAddress: placemarkStart.first.name ?? "",
-
+        startAddress: "${placemarkStart.first.street}, ${placemarkStart.first.isoCountryCode} " ?? "",
       );
     } else {
+      List<GC.Placemark> placemarkEnd = await GC.placemarkFromCoordinates(endLat!, endLng!);
       await widget.routesRepository.addRoute(
         startLat: startLat,
         startLng: startLng,
-        startAddress: placemarkStart.first.name ?? "",
+        startAddress:  "${placemarkStart.first.street}, ${placemarkStart.first.isoCountryCode} " ?? "",
         endLat: endLat,
         endLng: endLng,
-        endAddress: placemarkEnd.first.name ?? "",
+        endAddress:  "${placemarkEnd.first.street}, ${placemarkEnd.first.isoCountryCode} " ?? "",
       );
     }
-
-
   }
 
   Future<void> _updateRoute({
     required int id,
     required double startLat,
     required double startLng,
-    required String startAddress,
+    //required String startAddress,
     double? endLat,
     double? endLng,
-    String? endAddress,
+    //String? endAddress,
   }) async {
-    await widget.routesRepository.updateRoute(id: id, startLat: startLat, startLng: startLng, startAddress: startAddress, endLat: endLat, endLng: endLng, endAddress: endAddress);
+    List<GC.Placemark> placemarkStart = await GC.placemarkFromCoordinates(startLat, startLng);
+
+    if (endLat == null) {
+      await widget.routesRepository.updateRoute(
+        id: id,
+        startLat: startLat,
+        startLng: startLng,
+        startAddress:  "${placemarkStart.first.street}, ${placemarkStart.first.isoCountryCode} " ?? "",
+      );
+    } else {
+      List<GC.Placemark> placemarkEnd = await GC.placemarkFromCoordinates(endLat!, endLng!);
+      await widget.routesRepository.updateRoute(
+        id: id,
+        startLat: startLat,
+        startLng: startLng,
+        startAddress:  "${placemarkStart.first.street}, ${placemarkStart.first.isoCountryCode} " ?? "",
+        endLat: endLat,
+        endLng: endLng,
+        endAddress:  "${placemarkEnd.first.street}, ${placemarkEnd.first.isoCountryCode} " ?? "",
+      );
+    }
   }
 
   void _onMapCreated(GoogleMapController mapController) {
@@ -216,14 +233,18 @@ class _GoogleMapPageState extends State<GoogleMapPage> {
                         // double lat = 0;
                         //lat = polylineCoordinates[0].latitude;
 
-                        if (markers.length != 0) {
+                        if (markers.length == 2) {
                           _addRoute(
                             startLat: markers.first.position.latitude,
                             startLng: markers.first.position.longitude,
-                            //startAddress: "startAddress",
                             endLat: markers.last.position.latitude,
                             endLng: markers.last.position.longitude,
-                            //endAddress: "endAddress",
+                          );
+                          Navigator.pop(context);
+                        } else if (markers.length == 1) {
+                          _addRoute(
+                            startLat: markers.first.position.latitude,
+                            startLng: markers.first.position.longitude,
                           );
                           Navigator.pop(context);
                         } else {
@@ -246,10 +267,10 @@ class _GoogleMapPageState extends State<GoogleMapPage> {
                             id: widget.routeEntity!.id,
                             startLat: markers.first.position.latitude,
                             startLng: markers.first.position.longitude,
-                            startAddress: "startAddress",
+                           // startAddress: "startAddress",
                             endLat: markers.last.position.latitude,
                             endLng: markers.last.position.longitude,
-                            endAddress: "endAddress",
+                           // endAddress: "endAddress",
                           );
                           Navigator.pop(context);
                         } else {
